@@ -40,6 +40,10 @@
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([self.sideMenuController.delegate respondsToSelector:@selector(shouldReceiveTouch:)] && ![self.sideMenuController.delegate shouldReceiveTouch:touch]) {
+        return NO;
+    }
+    
     if (self.isAnimating) return NO;
 
     if (![gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
